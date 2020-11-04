@@ -16,14 +16,15 @@
     "directory": "addons/graphql"
   },
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/**/*",
     "README.md",
     "*.js",
     "*.d.ts",
-    "ts3.4/**/*"
+    "ts3.7/**/*"
   ],
   "scripts": {
     "prepare": "node ../../scripts/prepare.js"
@@ -31,8 +32,8 @@
   "dependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-transform-classes": "^7.12.1",
-    "@storybook/addons": "6.1.0-beta.1",
-    "@storybook/api": "6.1.0-beta.1",
+    "@storybook/addons": "6.1.0-alpha.4",
+    "@storybook/api": "6.1.0-alpha.4",
     "@types/webpack": "^4.41.9",
     "babel-loader": "^8.0.6",
     "core-js": "^3.0.1",
@@ -62,7 +63,7 @@
   "typesVersions": {
     "<3.8": {
       "*": [
-        "ts3.4/*"
+        "ts3.7/*"
       ]
     }
   }

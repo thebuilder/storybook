@@ -28,15 +28,15 @@
     "README.md",
     "*.js",
     "*.d.ts",
-    "ts3.4/**/*"
+    "ts3.7/**/*"
   ],
   "scripts": {
     "prepare": "node ../../scripts/prepare.js"
   },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.12.1",
-    "@storybook/addons": "6.1.0-beta.1",
-    "@storybook/core": "6.1.0-beta.1",
+    "@storybook/addons": "6.1.0-alpha.4",
+    "@storybook/core": "6.1.0-alpha.4",
     "@types/webpack-env": "^1.15.2",
     "core-js": "^3.0.1",
     "global": "^4.3.2",
@@ -62,7 +62,7 @@
   "typesVersions": {
     "<3.8": {
       "*": [
-        "ts3.4/*"
+        "ts3.7/*"
       ]
     }
   }

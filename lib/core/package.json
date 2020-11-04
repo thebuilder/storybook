@@ -15,7 +15,8 @@
     "directory": "lib/core"
   },
   "license": "MIT",
-  "main": "dist/client/index.js",
+  "main": "dist/cjs/client/index.js",
+  "module": "dist/esm/client/index.js",
   "types": "dist/client/index.d.ts",
   "files": [
     "dist/**/*",
@@ -24,7 +25,7 @@
     "types/**/*",
     "*.js",
     "*.d.ts",
-    "ts3.4/**/*"
+    "ts3.7/**/*"
   ],
   "scripts": {
     "prepare": "node ../../scripts/prepare.js"
@@ -147,7 +148,7 @@
   "typesVersions": {
     "<3.8": {
       "*": [
-        "ts3.4/*"
+        "ts3.7/*"
       ]
     }
   }

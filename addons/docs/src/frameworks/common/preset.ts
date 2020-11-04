@@ -1,9 +1,18 @@
 import path from 'path';
 import remarkSlug from 'remark-slug';
 import remarkExternalLinks from 'remark-external-links';
+import glob from 'glob';
+
+import { DllReferencePlugin } from 'webpack';
 
 // @ts-ignore
 import createCompiler from '../../mdx/mdx-compiler-plugin';
+
+const coreDirName = path.dirname(require.resolve('@storybook/core/package.json'));
+// TODO: improve node_modules detection
+const context = coreDirName.includes('node_modules')
+  ? path.join(coreDirName, '../../') // Real life case, already in node_modules
+  : path.join(coreDirName, '../../node_modules'); // SB Monorepo
 
 // for frameworks that are not working with react, we need to configure
 // the jsx to transpile mdx, for now there will be a flag for that
@@ -29,6 +38,14 @@ function createBabelOptions({ babelOptions, mdxBabelOptions, configureJSX }: Bab
     plugins,
   };
 }
+
+export const webpackDlls = (dlls: string[], options: any) => {
+  const uiDlls = glob
+    .sync(path.join(__dirname, '../../../../dll/*storybook_docs_dll.js'))
+    .map((file) => `./sb_dll/${path.basename(file)}`);
+
+  return options.dll ? [...dlls, ...uiDlls] : [];
+};
 
 export function webpack(webpackConfig: any = {}, options: any = {}) {
   const { module = {} } = webpackConfig;
@@ -131,20 +148,15 @@ export function webpack(webpackConfig: any = {}, options: any = {}) {
     },
   };
 
-  return result;
-}
-
-export function managerEntries(entry: any[] = [], options: any) {
-  return [...entry, require.resolve('../../register')];
-}
-
-export function config(entry: any[] = [], options: any = {}) {
-  const { framework } = options;
-  const docsConfig = [require.resolve('./config')];
-  try {
-    docsConfig.push(require.resolve(`../${framework}/config`));
-  } catch (err) {
-    // there is no custom config for the user's framework, do nothing
+  if (options.dll) {
+    result.plugins.push(
+      new DllReferencePlugin({
+        context,
+        scope: 'sb_dll',
+        manifest: require.resolve('@storybook/core/dll/storybook_docs-manifest.json'),
+      })
+    );
   }
-  return [...docsConfig, ...entry];
+
+  return result;
 }
