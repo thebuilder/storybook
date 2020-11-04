@@ -70,7 +70,6 @@ export default async ({
   presets,
   typescriptOptions,
 }: any) => {
-  const dlls = await presets.apply('webpackDlls', []);
   const logLevel = await presets.apply('logLevel', undefined);
   const frameworkOptions = await presets.apply(`${framework}Options`, {}, {});
   const { raw, stringified } = loadEnv({ production: true });
@@ -156,7 +155,6 @@ export default async ({
             FRAMEWORK_OPTIONS: frameworkOptions,
           },
           headHtmlSnippet: getPreviewHeadHtml(configDir, process.env),
-          dlls,
           bodyHtmlSnippet: getPreviewBodyHtml(configDir, process.env),
         }),
         minify: {
