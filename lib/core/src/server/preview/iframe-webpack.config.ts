@@ -9,6 +9,7 @@ import TerserWebpackPlugin from 'terser-webpack-plugin';
 import VirtualModulePlugin from 'webpack-virtual-modules';
 import PnpWebpackPlugin from 'pnp-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+// @ts-ignore
 import FilterWarningsPlugin from 'webpack-filter-warnings-plugin';
 
 import resolveFrom from 'resolve-from';
